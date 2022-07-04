@@ -41,7 +41,7 @@ public class Test015
 		char ch;
 		int num;
 
-		System.out.print("한 문자 입력		 : ");
+		System.out.print("한 문자 입력       : ");
 		ch = (char)System.in.read();
 
 		System.out.print("한 자리 정수 입력 : ");
@@ -58,19 +58,40 @@ public class Test015
 		// 선생님 풀이 --------------------------------------------------------
 
 		// 주요 변수 선언
-		char ch;
-		int n;
+		char ch;											// 입력 받은 문자
+		int n;												// 입력 받은 정수
+
+		// 추가 변수 선언
+		char temp;
 
 		// 연산 및 처리
 		// ① 사용자 안내 메시지
-		System.out.print("한 문자 입력		 : ");
+		System.out.print("한 문자 입력       : ");
 		ch = (char)System.in.read();						// 엔터키 = 『\r』 + 『\n』
 															//		→ System.in.read(A + \r + \n);
 															//							  -------- 잔류
+		System.in.skip(2);									// 잔류 코드 2개 스킵
 
-		System.out.print("한 자리 정수 입력  : ");			//		→ System.in.read(\r);
+		System.out.print("한 자리 정수 입력  : ");			
+		// n = System.in.read();							   문자 → 아스키코드
+		// temp = (char)System.in.read();					   temp를 사용해서 n의 오류를 처리
 		n = System.in.read();
+		n -= 48;
 
-		// ② 
+		// ② 결과 출력
+		System.out.println();
+		System.out.println(">> 입력한 문자 : " + ch);
+		// System.out.println(">> 입력한 정수 : " + temp);
+		System.out.println(">> 입력한 정수 : " + n);
+
+		// 최종 결과
+		/*
+			한 문자 입력       : a
+			한 자리 정수 입력  : 1
+
+			>> 입력한 문자 : a
+			>> 입력한 정수 : 1
+			계속하려면 아무 키나 누르십시오 . . .
+		*/
 	}
 }
