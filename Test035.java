@@ -36,9 +36,11 @@ public class Test035
 {
 	public static void main(String[] args) throws IOException
 	{
+		// 필수 변수 선언
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int year;
-
+		
+		// 연산 및 처리
 		System.out.print("임의의 연도 입력 : ");
 		year = Integer.parseInt(br.readLine());
 
@@ -58,5 +60,20 @@ public class Test035
 		{
 			System.out.printf("%d → 평년%n", year);
 		}
+
+		// 최종 결과
+		/*
+			임의의 연도 입력 : 2000
+			2000 → 윤년
+			계속하려면 아무 키나 누르십시오 . . .
+
+			임의의 연도 입력 : 2012
+			2012 → 윤년
+			계속하려면 아무 키나 누르십시오 . . .
+
+			임의의 연도 입력 : 2022
+			2022 → 평년
+			계속하려면 아무 키나 누르십시오 . . .
+		*/
 	}
 }
