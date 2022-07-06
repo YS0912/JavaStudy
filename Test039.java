@@ -27,10 +27,35 @@
 // >> 입력 오류~!!
 // 계속하려면 아무 키나 누르세요...
 
+
+import java.io.IOException;
+
 public class Test039
 {
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
+		// 필수 변수 선언
+		int ch;
 		
+
+		// 연산 및 처리
+		System.out.print("임의의 알파벳 한 문자 입력 : ");
+		ch = System.in.read();
+
+		String result;
+		
+		if(ch==65 || ch==69 || ch==73 || ch==79 || ch==85)					// -- 대문자 모음이 입력되었을 때
+			result = "모음 OK~!!!";
+		else if(ch==97 || ch==101 || ch==105 || ch==111 || ch==117)			// -- 소문자 모음이 입력되었을 때
+			result = "모음 OK~!!!";
+		else if((ch>=65 && ch<=90) || (ch>=97 && ch<=122))					// -- 자음이 입력되었을 때
+			return;
+		else
+			result = "입력 오류~!!!";
+	
+
+		// 결과 출력
+		System.out.println(result);
+
 	}
 }
