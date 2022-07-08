@@ -5,8 +5,6 @@
 
 // return : 값을 반환하고 메소드를 종료해라
 
-//
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
