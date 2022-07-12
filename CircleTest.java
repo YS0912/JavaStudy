@@ -73,11 +73,12 @@ public class CircleTest
 
 	// 주요 속성(데이터) → 멤버 변수
 	int r;								// 반지름
-	final double pi = 3.141592;			// 원주율 (변수의 상수화)
+	final double PI = 3.141592;			// 원주율 (변수의 상수화)
 	
 	// BufferedReader br = new BufferedReader(new InputStreamReader(System.in));		-- 메모리 낭비
 
 	// 주요 기능(동작, 행위) → 멤버 메소드
+
 	// 반지름 입력 기능 → 메소드 정의
 	void input() throws IOException
 	{
@@ -88,6 +89,35 @@ public class CircleTest
 	}
 
 	// 넓이 계산 기능 → 메소드 정의
+	double calArea()
+	{
+		// 원의 넓이 = 반지름 * 반지름 * 3.141592
+		return r * r * PI;
+	}
+
 	// 둘레 계산 기능 → 메소드 정의
+	double calLength()
+	{
+		// 원의 둘레 = 2 * 반지름 * 3.141592
+		double result;
+
+		result = 2 * r * PI;
+
+		return result;
+
+	}
+
 	// 결과 출력 기능 → 메소드 정의
+	void print(double a, double l)
+	{
+		/*
+		>> 반지름이 xxx인 원의				// 갖고 있음(전역변수)
+		>> 넓이 : xxx.xx					// 안 갖고 있음(지역변수)
+		>> 둘레 : xxx.xx
+		*/
+
+		System.out.printf(">> 반지름이 %d 인 원의\n", r);
+		System.out.printf(">> 넓이 : %.2f\n", a);
+		System.out.printf(">> 둘레 : %.2f\n", l);
+	}
 }
