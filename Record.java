@@ -25,5 +25,5 @@ public class Record
 	int tot;							// ÃÑÁ¡
 	double avg;							// Æò±Õ
 
-	// int rank;
+	int rank;
 }

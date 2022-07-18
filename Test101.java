@@ -56,6 +56,8 @@ public class Test101
 	{
 		Sungjuk sj = new Sungjuk();
 
+		sj.set();
 		sj.input();
+		sj.print();
 	}
 }
