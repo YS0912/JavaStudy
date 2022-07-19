@@ -108,7 +108,7 @@ public class Test106
 		*/
 		
 		// 내 풀이 ----------------------------------------------------------------------
-		
+		/*
 		// 변수 선언
 		String code;
 		int result=0;
@@ -122,7 +122,10 @@ public class Test106
 		// 결과 출력
 		// -- 입력 갯수 초과 또는 미달일 경우
 		if (code.length()<14 || code.length()>14)
+		{
 			System.out.println(">> 입력 오류");
+			return;
+		}
 
 		// "-"를 제외한 숫자값만 추출하여 code에 담아내기
 		code = code.substring(0, 6) + code.substring(7);
@@ -142,21 +145,20 @@ public class Test106
 		}
 
 
-		/*
-		for (int i=1; i<=6; i++)
-		{
-			if (i<=9)
-				result += Integer.parseInt(code.substring(i-1,i)) * i;
-		}
+		// for (int i=1; i<=6; i++)
+		// {
+		// 	 if (i<=9)
+		//		 result += Integer.parseInt(code.substring(i-1,i)) * i;
+		// }
 
-		for (int i=8; i<=13; i++)
-		{	
-			if (i<=11)
-				result += Integer.parseInt(code.substring(i-1,i)) * i;
-			else
-				result += Integer.parseInt(code.substring(i-1,i)) * i;
-		}
-		*/
+		// for (int i=8; i<=13; i++)
+		// {	
+		//	 if (i<=11)
+		//		 result += Integer.parseInt(code.substring(i-1,i)) * i;
+		//	 else
+		//		 result += Integer.parseInt(code.substring(i-1,i)) * i;
+		// }
+
 
 		// ② result를 11로 나눈 나머지
 		result = result%11;
@@ -178,7 +180,55 @@ public class Test106
 			System.out.println(">> 잘못된 주민번호");
 
 		// System.out.println(Integer.parseInt(code.substring(2, 3))*5);
+		*/
 
 
+		// 선생님 풀이 ----------------------------------------------------------------------
+		
+		String str;
+		int tot=0;
+
+		int[] chk = {2, 3, 4, 5, 6, 7, 0, 8, 9, 2, 3, 4, 5};	// ★"-" 자리에 0 집어넣기★
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		System.out.print("주민번호입력 (xxxxxx-xxxxxxx) : ");
+		// Integer.parseInt(br.readLine());
+		str = br.readLine();
+
+		if (str.length() != 14)
+		{
+			System.out.println(">> 입력 오류");
+			return;									// 메소드 종료 → 프로그램 종류
+		}
+
+		for (int i=0; i<13; i++)
+		{
+			// 테스트
+			// System.out.print(i + " ");
+			// →  0 1 2 3 4 5 6 7 8 9 10 11 12
+			
+			// i가 6일 때에는 뒷부분 무시하고 계속해라
+			if (i==6)
+				continue;
+
+			tot += chk[i] * Integer.parseInt(str.substring(i, (i+1)));	// -- 뒷부분
+		}
+
+		// 테스트
+		// System.out.println("tot : " + tot);
+
+		// ----------- 여기까지 수행하면 ①과 ②를 모두 끝낸 상황이며 그 값이 tot에 담기게 된다
+
+		int su = 11;
+
+		// --- 여기까지 수행하면 ③과 ④를 모두 끝낸 상황이며 두 자리가 나왔을 경우 처리가 필요
+
+		su = su % 10;
+		
+		if (su == Integer.parseInt(str.substring(13)))
+			System.out.println(">> 정확한 주민번호");
+		else
+			System.out.println(">> 잘못된 주민번호");
 	}
 }
