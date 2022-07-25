@@ -127,5 +127,50 @@ public class Test137
 		// → |사          랑|
 		//	  ▶ 양쪽 가장자리 공백 제거
 
+		System.out.println("|" + s.replaceAll(" ", "") + "|");
+		// → |사랑|
+
+
+		// ○ "50": 오버로드
+		int temp = Integer.parseInt("50");
+		// System.out.println(temp);
+		System.out.printf("%d%n", temp);
+		// → 50
+
+		s = Integer.toString(30);
+		// System.out.println(s);
+		System.out.printf("%s%n", s);
+		// → 30
+		
+		
+
+		// ○ 형식 지정
+		int n = 2345678;
+		System.out.printf("%d", n);
+		System.out.format("%d", n);
+		// → 23456782345678
+
+		System.out.println();
+
+		s = String.format("%d", n);
+		System.out.println(s);
+		// → 2345678
+
+		s = String.format("%,d", n);
+		System.out.println(s);
+		// → 2,345,678
+
+		
+		// String str = "기본, 열정, 배려";
+		// String[] strArr = str.split(",");
+		
+		// ▼
+
+		String[] strArr = "기본, 열정, 배려".split(",");
+		for (String str : strArr)
+			System.out.print(str + " ");
+		System.out.println();
+		// → 기본  열정  배려
+
 	}
 }
