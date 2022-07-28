@@ -107,5 +107,51 @@ public class Test162
 		v.add(new MyData("정영준", 13));
 		v.add(new MyData("정미경", 7));
 		v.add(new MyData("한은영", 3));
+
+		
+		// 벡터 자료구조 v에 담긴 내용(요소) 전체 출력하기
+		// 실행 예)
+		// 이름:정영준, 나이:13세
+		// 이름:정미경, 나이:7세
+		// 이름:한은영, 나이:3세
+
+		/* ①
+		for (MyData obj : v)
+			System.out.printf("이름:%s, 나이:%d세%n", obj.getName(), obj.getAge());
+		System.out.println();
+		   → 이름:정영준, 나이:13세
+			  이름:정미경, 나이:7세
+			  이름:한은영, 나이:3세
+		*/
+	
+		
+		/* ②
+		for (int i=0; i<v.size(); i++)
+			System.out.printf("이름:%s, 나이:%d세%n", v.elementAt(i).getName(), v.elementAt(i).getAge());
+			// System.out.printf("이름:%s, 나이:%d세%n", v.get(i).getName(), v.get(i).getAge());
+		System.out.println();
+		   → 이름:정영준, 나이:13세
+			  이름:정미경, 나이:7세
+			  이름:한은영, 나이:3세
+		*/
+
+
+		/* ③
+		for (int i=0; i<v.size(); i++)
+			System.out.printf("이름:%s, 나이:%d세%n", v.get(i).getName(), v.get(i).getAge());
+		System.out.println();
+		   → 이름:정영준, 나이:13세
+			  이름:정미경, 나이:7세
+			  이름:한은영, 나이:3세
+		*/
+
+
+		// ④
+		for (Object temp : v)	// 업캐스팅
+			System.out.printf("이름:%s, 나이:%d세%n", ( (MyData)temp ).getName(), ( (MyData)temp ).getAge());		// 다운캐스팅
+		System.out.println();
+		// → 이름:정영준, 나이:13세
+		//	  이름:정미경, 나이:7세
+		//	  이름:한은영, 나이:3세
 	}
 }
