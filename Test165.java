@@ -90,7 +90,7 @@ public class Test165
 		// → 범죄도시2 레미제라블 탑건2 마녀2 인셉션
 
 
-		// 출력 → 역숙으로 접근
+		// 출력 → 역순으로 접근
 		while (li.hasPrevious())		// 리딩 포인터? 가 앞으로 이동 (앞에도 똑같은 레일 있음)
 		{
 			System.out.print(li.previous() + " ");

@@ -367,6 +367,7 @@ public class Test163
 	{
 		System.out.println("\n프로그램 종료");
 		System.exit(-1);
+		// 어떤 숫자를 넣어도 상관 없다! 통상적으로 PDA 쓸 적에 아무런 문제 없이 종료되었다는 걸 -1로 표시했을 뿐!
 	}
 
 	// main() 메소드 → 완성
