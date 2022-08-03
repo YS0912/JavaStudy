@@ -1,0 +1,98 @@
+UserMenu
+public static final int RESERV   = 1;	// 예매하기
+public static final int R_CHECK  = 2;	// 예매내역 확인
+public static final int R_CANCEL = 3;	// 예매 취소
+public static final int B_USER   = 0;	// 관람객 메뉴로 돌아가기
+
+ReservMenu
+public static final int R_MPICK = 1;	// 영화 기준으로 예매
+public static final int R_TPICK  = 2;	// 시간 기준으로 예매
+public static final int B_MENU  = 0;	// 이전으로 돌아가기
+
+AdminMenu
+public static final int M_MANAGE  = 1;	// 상영영화관리
+public static final int S_MANAGE  = 2;	// 상영관 관리
+public static final int B_ADMIN  = 0;	// 관리자 메뉴로 돌아가기
+
+class MConMenu
+public static final int M_ADD  = 1;	// 영화 등록
+public static final int M_DEL  = 2;	// 영화 삭제
+public static final int M_DISP = 3;	// 등록 영화 확인
+
+class SConMenu
+public static final int UP_SCREEN = 1;	// 상영 영화 등록
+public static final int UP_ROUND = 2;	// 상영관 회차 관리
+public static final int S_DISP  = 3;	// 상영관 이용 내역
+
+
+============================================================================ 메뉴 인덱스 클래스
+
+영화 데이터를 저장할 변수 세트 선언? 필요?
+
+reserv()
+public int reservedNum	// 예매 난수 번호
+
+rCheck()
+
+rCancel()
+
+moviePick()
+private int titleNum;	// 영화 제목
+
+timePick()
+public int timeNum	// 오전,오후,저녁(사용자용 화면)
+
+inwonPick()
+private int adult;	 // 성인 몇명인지
+private int teenager;    // 청소년 몇명인지
+private int kid;	 // 어린이 몇명인지
+
+seatPick()
+public static String[][] seat = new String[5][5];	// 좌석 배열
+char alpha;	// 좌석 영어 (열)
+int row;	// 좌석 행
+int col;	// 좌석 열
+
+================================================================================= 사용자 메뉴 메소드
+
+// 관리자 메뉴 출력 메소드 (알고리즘 B열)
+AmenuDisp()
+
+// 관리자 메뉴 선택 메소드
+AmenuSelect()
+
+// 관리자 메뉴에서 선택한 기능 호출 메소드
+AmenuRun()
+
+// 1. 상영 영화 관리 메뉴 출력
+movieManage()
+
+// 1. 상영 영화 관리 메뉴에서 선택한 기능 호출 메소드
+movieMenuRun()
+
+screenManage()
+
+addMovie()
+	private String title;	// 영화제목 (삭제에서 사용 가능)
+	private int grade;	// 관람등급
+	private int playTime;	// 러닝타임
+
+delMovie()
+	private String title;
+
+dispMovie()
+
+updateScreen()
+
+updateRound()
+int cine;                        	 // 1관 2관 3관
+int roundTime;                           // 몇 시간마다 상영관 돌릴 건지
+String[] screenTime = new String[15/n];  // 상영 회자 정보(시간)
+
+dispScreen()
+
+================================================================================= 관리자 메뉴 메소드
+
+bMenu()
+bAdmin()
+bUser()
