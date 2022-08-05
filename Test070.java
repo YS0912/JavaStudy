@@ -40,7 +40,9 @@ class 직사각형
 
 import java.util.Scanner;
 
-class Rect
+class 
+
+Rect
 {
 	// 데이터(속성, 상태)			→ 변수 (순서 의미 없음)
 	int w, h;						   // 가로, 세로
