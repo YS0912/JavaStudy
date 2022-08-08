@@ -44,43 +44,31 @@ public class MovieManagement extends AdminCall
 	// 영화 등록
 	public void  registerMovie() throws IOException
 	{
-		movies[0] = new MovieData();
-		
 		System.out.println();
 		System.out.println("[영화 정보 등록]=======================\n");
 		System.out.println("등록을 원하는 영화 정보를 입력해주세요.\n");
 		System.out.println("=======================================\n");
 
 		System.out.print("제목			: ");
-		tempTitle = sc.next();
-		movies[0].title = tempTitle;
+		String tempTitle = sc.next();
 		System.out.print("관람 등급(0 / 15 / 19)  : ");
-		movies[0].grade = sc.nextInt();
+		int tempGrade = sc.nextInt();
 		System.out.print("러닝타임 입력(분)	: ");
-		movies[0].playTime = sc.nextInt();
+		int tempPlayTime = sc.nextInt();
 		System.out.println();
 		
-		for (int i = 0; i <= vt.size(); i++)
-		{	
-			if (vt.size() == 0)
+		for (int i = 0; i < movies.length; i++)
+		{
+			if (movieCheck(tempTitle))
 			{
-				vt.add(movies[0]);
-				System.out.println("[영화 정보 등록]=======================\n");
-				System.out.println( movies[0] +"\n\n등록완료");
-				break;
-			}
-			else if ( ( vt.get(i).getTitle() ).equals(tempTitle) )
-			{
-				System.out.println("이미 등록된 영화입니다. 다시 입력하세요.");
-				registerMovie();
-				break;
+				System.out.println("영화 제목 중복입니다. 다시 입력하세요.");
 			}
 			else
 			{
-				vt.add(movies[0]);
+				movies[i] = new MovieData(tempTitle, tempGrade, tempPlayTime);
+				vt.add(movies[i]);
 				System.out.println("[영화 정보 등록]=======================\n");
-				System.out.println( movies[0] +"\n\n등록완료");
-				break;
+				System.out.println(movies[i].toString()+"\n\n등록완료");
 			}
 		}
 
@@ -156,7 +144,6 @@ public class MovieManagement extends AdminCall
 	{
 		System.out.println("\n[등록된 영화 삭제] ======================\n");
 
-		// 벡터에 저장된 영화 정보 불러오기
 		for(MovieData m : vt) 
 		{
 			if(m != null) 
@@ -171,13 +158,10 @@ public class MovieManagement extends AdminCall
 		System.out.println("========================================\n");
 		System.out.print("제목 입력 : ");
 		tempTitle = sc.next();
-		
-		tempIndex = -1;
-		
+
 		// vt 내에 tempTitle과 같은 영화 제목이 어디 있는지 찾아 삭제하는 구문
 		for (int n=0; n<vt.size(); n++)
 		{
-			// tempTitle과 같은 영화 제목이 저장되어 있는 인덱스 찾는 구문
 			if (( vt.get(n).getTitle() ).equals(tempTitle) == true)
 			{
 				boolean flag = ( vt.get(n).getTitle() ).equals(tempTitle);
@@ -186,14 +170,12 @@ public class MovieManagement extends AdminCall
 					tempIndex = n;
 			}
 		}
-		
-		// 인덱스 값을 못 찾았으면
+
 		if (tempIndex == -1)
 		{
-				System.out.println("해당 영화가 존재하지 않습니다. 영화 제목을 다시 입력하세요.\n");
+				System.out.println("입력하신 제목의 영화가 존재하지 않습니다");
 				System.out.println();
 		}
-		// 찾았으면
 		else
 		{
 			vt.removeElementAt(tempIndex);
@@ -201,31 +183,35 @@ public class MovieManagement extends AdminCall
 			
 			System.out.println();
 			System.out.println("[등록된 영화 삭제] ======================\n");
+			
+			for(MovieData m : vt) 
+			{	
+				if(m != null) 
+				{
+					printMovieInfo(m);
+				}
+			}
+			
 			System.out.println("영화 삭제 완료\n");
 		}
 
 		// screen[] 내에 tempTitle과 같은 영화 제목이 어디 있는 찾아 삭제하는 구문
-			try
+		for (int n=0; n<screen.length; n++)
+		{
+			if ( tempTitle.equals( screen[n].title ) )
 			{
-				for (int n=0; n<screen.length; n++)
-				{
-					if ( tempTitle.equals( screen[n].title ) )
-					{
-						screen[n] = null;
-						System.out.println(" 0. 이전 메뉴로 돌아가기");
-						System.out.println("99. 관리자 메뉴로 돌아가기");
-						System.out.println("========================================\n");
+				screen[n] = null;
+				break;
+			}
+			else
+			{
+				break;
+			}
+		}
 
-						break;
-					}
-				}
-			}
-			catch (NullPointerException e)
-			{
-				System.out.println(" 0. 이전 메뉴로 돌아가기");
-				System.out.println("99. 관리자 메뉴로 돌아가기");
-				System.out.println("========================================\n");
-			}
+		System.out.println(" 0. 이전 메뉴로 돌아가기");
+		System.out.println("99. 관리자 메뉴로 돌아가기");
+		System.out.println("========================================\n");
 
 		do
 		{
@@ -254,6 +240,33 @@ public class MovieManagement extends AdminCall
 	public void printMovieInfo(MovieData m) 
 	{
 		System.out.println(m.toString() + "\n");
+	}
+
+	// 영화 제목 중복 체크
+	private boolean movieCheck(String tempTitle)
+	{
+		boolean check = true;
+		MovieData md = findMovie(tempTitle);
+		if (md == null)
+		{
+			check = false;
+		}
+		return check;
+	}
+
+	// 영화 제목으로 영화 정보 찾기
+	public MovieData findMovie(String tempTitle) 
+	{
+
+		for (int i = 0; i < vt.size(); i++) 
+		{
+			if (( vt.get(i).getTitle() ).equals(tempTitle) == true)
+			{
+				return movies[i];
+			}
+		}
+
+		return null;
 	}
 
 	// 제목 선택 받기

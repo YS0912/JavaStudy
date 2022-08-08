@@ -9,8 +9,8 @@ import java.util.Iterator;
 class SConMenu
 {
 	public static final int UP_SCREEN = 1;	// 상영 영화 등록
-	public static final int UP_ROUND = 2;	// 상영관 회차 관리
-	public static final int S_DISP  = 3;	// 상영관 이용 내역
+	//public static final int UP_ROUND = 2;	// 상영관 회차 관리 (→ 상영관 당 스크린 타임이 고정되면서 삭제)
+	public static final int S_DISP  = 2;	// 상영관 이용 내역
 }
 
 //class AdminMenu
@@ -97,8 +97,8 @@ public class ScreenManagement extends AdminCall
 
 		System.out.println("\n[상영관 관리]==================\n");
 		System.out.println("1. 상영할 영화 등록");
-		System.out.println("2. 회차 관리");
-		System.out.println("3. 상영 중인 영화 내역");
+		//System.out.println("2. 회차 관리");
+		System.out.println("2. 상영 중인 영화 내역");
 		System.out.println();
 		System.out.println("99. 관리자 메뉴로 돌아가기");
 		System.out.println("=================================");
@@ -108,14 +108,9 @@ public class ScreenManagement extends AdminCall
 			System.out.print("\n메뉴 선택 : ");
 			sel = Integer.parseInt(br.readLine());
 		}
-		while (sel<1 || sel>3 && sel!=99);
+		while (sel<1 || sel>2 && sel!=99);
 		
 		System.out.println();
-
-		switch (sel)
-		{
-			case 99 : AmenuDisp(); break;
-		}
 
 		screenManageRun();
 	}
@@ -127,10 +122,19 @@ public class ScreenManagement extends AdminCall
 	{
 		switch (sel)
 		{
-			case SConMenu.UP_SCREEN : updateScreen_M(); break;
-			case SConMenu.UP_ROUND  : updateRound_S(); break;
-			case SConMenu.S_DISP   : dispScreen(); break;
-			default : System.out.println(">> 잘못된 메뉴 선택입니다."); break;
+			//case SConMenu.UP_ROUND  : updateRound_S(); break;
+			case SConMenu.UP_SCREEN :
+				updateScreen_M();
+				break;
+			case SConMenu.S_DISP	:
+				dispScreen();
+				break;
+			case 99					:
+				AmenuDisp();
+				break;
+			default					:
+				System.out.println(">> 잘못된 메뉴 선택입니다.");
+				break;
 		}
 
 		System.out.println();
@@ -175,8 +179,12 @@ public class ScreenManagement extends AdminCall
 
 		switch (tempTitle)
 		{
-			case "0"  : screenManage(); break;
-			case "99" : AmenuDisp(); break;
+			case "0"  :
+				screenManage();
+				break;
+			case "99" :
+				AmenuDisp();
+				break;
 			default   :
 				if (x == 1)
 				{
@@ -198,10 +206,19 @@ public class ScreenManagement extends AdminCall
 	{
 		//BackAMenu bAM = new BackAMenu();
 
-		System.out.println("\n[상영할 영화 등록] ==============================\n");
+		// updateScreen_M()에서 선택한 영화가 담겨있는 vt의 인덱스값 구하기
+		for (int n=0; n<vt.size(); n++)
+		{
+			boolean flag = ( vt.get(n).getTitle() ).equals(tempTitle);
+
+			if (flag)
+				tempIndex = n;
+		}
+		
+		System.out.println("\n[상영할 영화 등록] ========================================\n");
 		System.out.println();
 		
-		System.out.printf("선택한 영화는 %s입니다.\n", tempTitle);
+		System.out.printf("선택한 영화는 %s(%d분)입니다.\n", tempTitle, vt.get(tempIndex).getPlayTime() );
 		
 		System.out.println();
 
@@ -210,43 +227,40 @@ public class ScreenManagement extends AdminCall
 		System.out.println();
 
 		System.out.println("1관");
-		System.out.println(sTime[0]);
+		System.out.println(sTime[0] + "분");
 
 		System.out.println();
 
 		System.out.println("2관");
-		System.out.println(sTime[1]);
+		System.out.println(sTime[1] + "분");
 
 		System.out.println();
 
 		System.out.println("3관");
-		System.out.println(sTime[2]);
+		System.out.println(sTime[2] + "분");
 
 		System.out.println();
 
 		System.out.println("0. 이전 메뉴로 돌아가기");
 		System.out.println("99. 관리자 메뉴로 돌아가기");
-		System.out.println("==============================================");
+		System.out.println("===============================================================");
 
-		System.out.println();
-
-		System.out.println("이미 사용 중인 상영관을 선택할 시 상영 영화가 변경됩니다.");
-		System.out.print("상영관 선택 : ");
-		sel = Integer.parseInt(br.readLine());
+		do
+		{
+			System.out.println("\n이미 사용 중인 상영관을 선택할 시 상영 영화가 변경됩니다.");
+			System.out.print("상영관 선택 : ");
+			sel = Integer.parseInt(br.readLine());
+		}
+		while (sel<0 || sel>3 && sel!=99);
 
 		switch (sel)
 		{
-			case 0  : updateScreen_M(); break;
-			case 99 : AmenuDisp(); break;
-		}
-		
-		// 선택한 영화가 담겨있는 vt의 인덱스값 구하기
-		for (int n=0; n<vt.size(); n++)
-		{
-			boolean flag = ( vt.get(n).getTitle() ).equals(tempTitle);
-
-			if (flag)
-				tempIndex = n;
+			case 0  :
+				updateScreen_M();
+				break;
+			case 99 :
+				AmenuDisp();
+				break;
 		}
 
 		if (sTime[sel-1] >= vt.get(tempIndex).getPlayTime())
@@ -266,7 +280,7 @@ public class ScreenManagement extends AdminCall
 		}
 		else
 		{
-			System.out.println("\n[상영할 영화 등록] =====================\n");
+			System.out.println("\n[상영할 영화 등록] ========================\n");
 			
 			System.out.println();
 
@@ -276,15 +290,19 @@ public class ScreenManagement extends AdminCall
 
 			System.out.println("0. 이전 메뉴로 돌아가기");
 			System.out.println("99. 관리자 메뉴로 돌아가기");
-			System.out.println("==========================================");
+			System.out.println("=============================================");
 
 			sel = Integer.parseInt(br.readLine());
 		}
 
 		switch (sel)
 		{
-			case 0  : updateScreen_M(); break;
-			case 99 : AmenuDisp(); break;
+			case 0  :
+				updateScreen_M();
+				break;
+			case 99 :
+				AmenuDisp();
+				break;
 		}
 	}
 
@@ -309,15 +327,19 @@ public class ScreenManagement extends AdminCall
 
 			switch (sel)
 			{
-				case 0  : updateScreen_M(); break;
-				case 99 : AmenuDisp(); break;
+				case 0  :
+					updateScreen_M();
+					break;
+				case 99 :
+					AmenuDisp();
+					break;
 			
 			}
 	}
 
 // ------------------------------------------------------------------------------------------------
-	// 회차 관리 메소드
-
+	// 회차 관리 메소드 (→ 상영관 당 스크린 타임이 고정되면서 삭제)
+	/*
 	// 회차 관리할 상영관 선택 메뉴
 	public static void updateRound_S() throws IOException
 	{
@@ -398,7 +420,7 @@ public class ScreenManagement extends AdminCall
 			case 99 : AmenuDisp(); break;
 		}
 	}
-	
+	*/
 // ------------------------------------------------------------------------------------------------
 // 상영 중인 영화 목록 출력
 
@@ -407,7 +429,7 @@ public class ScreenManagement extends AdminCall
 		//int i = 0;
 		//BackAMenu bAM = new BackAMenu();
 
-		System.out.println("\n[상영 중인 영화 내역] =========");
+		System.out.println("\n[상영 중인 영화 내역] =========\n");
 
 		//for (Object temp : vt)
 		//{
@@ -420,7 +442,7 @@ public class ScreenManagement extends AdminCall
 
 		for (int i=0; i<screen.length; i++)
 		{
-			System.out.printf("\n%d관\n", i+1);
+			System.out.printf("%d관\n", i+1);
 
 			try
 			{
@@ -434,14 +456,16 @@ public class ScreenManagement extends AdminCall
 			}
 		}
 
-		System.out.println("99 관리자 메뉴로 돌아가기");
+		System.out.println("99. 관리자 메뉴로 돌아가기");
 		System.out.println("===============================");
 
 		sel = Integer.parseInt(br.readLine());
 
 		switch (sel)
 		{
-			case 99 : AmenuDisp(); break;
+			case 99 :
+				AmenuDisp();
+				break;
 		}
 	}
 
